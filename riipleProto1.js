@@ -30,7 +30,7 @@ var pause = false;
   if (!pause){
     locUpdate("unitS",hgt,deg); locUpdate("unit",0,deg);
   }
-  deg+=1;
+  deg+=0.5;
   if(true){ setTimeout(draw, 50); }})(); // Redraw
 
 //Updates all Unit Locations
