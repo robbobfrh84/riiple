@@ -54,24 +54,24 @@ function shuffle(o){
 var team = [];
 function newGame(){
   if (pause === false) {
-    pause = true; var gcnt = 0; var cnt = 0;
+    goalNumber();
+    var gcnt = 0; var cnt = 0; // pause = true;
     var reg = shuffle([0,72,144,216,288]);
     clearAllUnits()
     for (var j=0; j<5; j++){
       team[j] = random(1,6);
       var g = getGroup(team[j],reg,j);
-      gcnt += cnt; cnt = 0;
       for (var i=0; i<team[j]; i++) {
         gapa[i+gcnt] = g[cnt][0];
-        updateEl("unitS"+(i+gcnt),[["display","normal"],["cy",g[cnt][1]+hgt]
-          ,["transform","rotate("+g[cnt][0]+","+(250+hgt)+","+(220+hgt)+")"]]);
-        updateEl("unit"+(i+gcnt),[["display","normal"],["fill","url(#grad"+(team[j])+")"]
-          ,["cy",g[cnt][1]],["transform","rotate("+g[cnt][0]+",250,220)"]]);
+        updateEl("unitS"+(i+gcnt),[["cy",g[cnt][1]+hgt],["display","normal"]
+          ,["transform","rotate("+(g[cnt][0]+deg)+","+(250+hgt)+","+(220+hgt)+")"]]);
+        updateEl("unit"+(i+gcnt),[["fill","url(#grad"+(team[j])+")"],["display","normal"]
+          ,["cy",g[cnt][1]],["transform","rotate("+(g[cnt][0]+deg)+",250,220)"]]);
         cnt+=1;
       }
+    gcnt += cnt; cnt = 0;
     }
-    console.log(team);
-  } else { pause = false; deg=0;}
+  } else { pause = false; }//DO WE NEED DEG=0?
 }
 
 function updateEl(Id, att) {
@@ -95,4 +95,15 @@ function getGroup(groupSize,reg,x){
   g[5] = [[355.5+reg[x],47],[4.5+reg[x],47],[350+reg[x],68],[0+reg[x],68],[10+reg[x],68]];
   g[6] = [[353+reg[x],47],[2+reg[x],47],[10.5+reg[x],46],[347.5+reg[x],68],[357.5+reg[x],68],[7.5+reg[x],68]];
   return g[groupSize];
+}
+
+function goalNumber(){
+  createEl("circle",true,[["id","goal"+0],["cx",235],["cy",210],["r",10]
+    ,["fill","url(#grad"+7+")"]]);
+  createEl("circle",true,[["id","goal"+0],["cx",265],["cy",210],["r",10]
+    ,["fill","url(#grad"+7+")"]]);
+  createEl("circle",true,[["id","goal"+0],["cx",250],["cy",235],["r",10]
+    ,["fill","url(#grad"+7+")"]]);
+
+
 }
