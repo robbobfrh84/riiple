@@ -31,7 +31,7 @@ var pause = false;
     locUpdate("unitS",hgt,deg); locUpdate("unit",0,deg);
   }
   deg+=1;
-  if(true){ setTimeout(draw, 40); }})(); // Redraw
+  if(true){ setTimeout(draw, 50); }})(); // Redraw
 
 //Updates all Unit Locations
 function locUpdate(Id,hgt,deg) {
