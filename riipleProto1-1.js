@@ -51,27 +51,42 @@ function shuffle(o){
 // IN GAME ACTION /////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-var team = [];
+var reg = [0,72,144,216,288];
 function newGame(){
   if (pause === false) {
-    pause = true; var gcnt = 0; var cnt = 0;
-    var reg = shuffle([0,72,144,216,288]);
+    pause = true;
     clearAllUnits()
-    for (var j=0; j<5; j++){
-      team[j] = random(1,6);
-      var g = getGroup(team[j],reg,j);
-      gcnt += cnt; cnt = 0;
-      for (var i=0; i<team[j]; i++) {
-        gapa[i+gcnt] = g[cnt][0];
-        updateEl("unitS"+(i+gcnt),[["display","normal"],["cy",g[cnt][1]+hgt]
-          ,["transform","rotate("+g[cnt][0]+","+(250+hgt)+","+(220+hgt)+")"]]);
-        updateEl("unit"+(i+gcnt),[["display","normal"],["fill","url(#grad"+(team[j])+")"]
-          ,["cy",g[cnt][1]],["transform","rotate("+g[cnt][0]+",250,220)"]]);
-        cnt+=1;
-      }
-    }
-    console.log(team);
+    var reg = shuffle([0,72,144,216,288]);
+    // var reg = [0,288,144,216,72];
+
+    //make this 5 loops. calls function that rand1-6
+    //CHNG groupSize to j.
+    for (var j = 0;j<5;j++){
+      var g = getGroup(j+1,reg,j);
+      // var groupSize = j+3;
+      cnt = 0;
+      for (var i=0; i<36; i++) {
+        var unit = document.getElementById("unit"+i).getAttribute("fill")
+        if (unit === "url(#grad"+(j+1)+")" && cnt < j+1){
+          gapa[i] = g[cnt][0];
+          updateEl("unitS"+i,[["display","normal"],["cy",g[cnt][1]+hgt]
+            ,["transform","rotate("+gapa[i]+","+(250+hgt)+","+(220+hgt)+")"]]);
+          updateEl("unit"+i,[["display","normal"],["cy",g[cnt][1]]
+            ,["transform","rotate("+gapa[i]+",250,220)"]]);
+          cnt+=1;
+    } } }
   } else { pause = false; deg=0;}
+}
+
+var g = [];
+function getGroup(groupSize,reg,x){
+  g[1] = [[0+reg[x],58]];
+  g[2] = [[355.5+reg[x],58],[4.5+reg[x],58]];
+  g[3] = [[0+reg[x],47],[355+reg[x],68],[5+reg[x],68]];
+  g[4] = [[353+reg[x],46],[2+reg[x],47],[357.5+reg[x],68],[7.5+reg[x],68]];
+  g[5] = [[355.5+reg[x],47],[4.5+reg[x],47],[350+reg[x],68],[0+reg[x],68],[10+reg[x],68]];
+  g[6] = [[353+reg[x],47],[2+reg[x],47],[10.5+reg[x],46],[347.5+reg[x],68],[357.5+reg[x],68],[7.5+reg[x],68]];
+  return g[groupSize];
 }
 
 function updateEl(Id, att) {
@@ -84,15 +99,4 @@ function clearAllUnits(){
   for (var i=0; i<units; i++) {
     updateEl("unit"+i,[["display","none"]]); updateEl("unitS"+i,[["display","none"]]);
   }
-}
-
-var g = [];
-function getGroup(groupSize,reg,x){
-  g[1] = [[0+reg[x],58]];
-  g[2] = [[355.5+reg[x],58],[4.5+reg[x],58]];
-  g[3] = [[0+reg[x],47],[355+reg[x],68],[5+reg[x],68]];
-  g[4] = [[353+reg[x],46],[2+reg[x],47],[357.5+reg[x],68],[7.5+reg[x],68]];
-  g[5] = [[355.5+reg[x],47],[4.5+reg[x],47],[350+reg[x],68],[0+reg[x],68],[10+reg[x],68]];
-  g[6] = [[353+reg[x],47],[2+reg[x],47],[10.5+reg[x],46],[347.5+reg[x],68],[357.5+reg[x],68],[7.5+reg[x],68]];
-  return g[groupSize];
 }
