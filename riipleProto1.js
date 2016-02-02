@@ -54,7 +54,7 @@ function newGame(){
     key = goalGroup();
     var gcnt = 0; var cnt = 0; // pause = true;
     var reg = shuffle([0,72,144,216,288]);
-    clearAllUnits()
+    clearAllUnits("unit",units); clearAllUnits("unitS",units);
     for (var j=0; j<5; j++){
       team[j] = random(1,6);
       var g = getGroup(team[j],reg,j);
@@ -75,9 +75,9 @@ function updateEl(Id, att) { //function used to update any attributes with DOM.
   for (var i=0; i<att.length; i++){
     document.getElementById(Id).setAttributeNS(null, att[i][0],att[i][1]);
 } }
-function clearAllUnits(){ //clears all units and shaddows...
-  for (var i=0; i<units; i++) {
-    updateEl("unit"+i,[["display","none"]]); updateEl("unitS"+i,[["display","none"]]);
+function clearAllUnits(Id,numberOfUnits){ //clears all units and shaddows...
+  for (var i=0; i<numberOfUnits; i++) {
+    updateEl(Id+i,[["display","none"]]);
 } }
 function getGroup(groupSize,reg,x){ //location assignments for all groups 1-to-6.
   g[1] = [[0+reg[x],58]];
@@ -95,17 +95,17 @@ for (var i=0; i<9; i++) {
 }
 
 function goalGroup(){
-  // key = random(1,9);
-  var key = 6
+  clearAllUnits("goal",9)
+  key = random(1,9);
   gg[1] = [[250,220]];
   gg[2] = [[235,220],[265,220]];
   gg[3] = [[235,230],[265,230],[250,205]];
   gg[4] = [[242,230],[272,230],[257,205],[227,205]];
   gg[5] = gg[3];gg[5].push([220,205],[280,205]);
   gg[6] = gg[4];gg[6].push([287,205],[212,230]);
-  gg[7] = [[235,245],[265,245],[250,220],[220,220],[280,220],[235,195],[265,195]];
-  //gg[8] =
-  // gg[9] =
+  gg[7] = [[235,245],[265,245],[250,220],[220,220],[280,220],[265,195],[235,195]];
+  gg[8] = gg[6];gg[8].push([197,205],[302,230])
+  gg[9] = gg[7];gg[9].push([205,195],[295,245])
   for (var i=0; i<key; i++) {
     updateEl("goal"+i, [["display","normal"],["cx", gg[key][i][0]],["cy",gg[key][i][1]]]);
   }
