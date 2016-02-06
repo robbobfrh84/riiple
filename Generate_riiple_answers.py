@@ -221,8 +221,8 @@ def get_parenthesis(A,B,C,D,E,O,p,fail,crib): #0 first is no parenthesis.
 #return values for random game and answer with specific number of possible correct answers. 
 correct_sample, total_correct, possible_perms = main()
 print total_correct, "/", possible_perms
-#for i in range(len(correct_sample)):
-#        print correct_sample[i]
+for i in range(len(correct_sample)):
+        print correct_sample[i]
         
 #Here we can run the program several times to get correct answer results...
 #x=[]        
