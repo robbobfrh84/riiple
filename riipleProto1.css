@@ -10,3 +10,7 @@ body {
   margin: auto;
   opacity: 0.6;
 }
+.buttons {
+  display: block;
+  margin: auto;
+}
